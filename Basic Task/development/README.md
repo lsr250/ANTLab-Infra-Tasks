@@ -7,7 +7,7 @@
 master
 
 ## 最终 Commit SHA
-（提交后回填）
+8108dac
 
 ## 模型信息
 - 模型：Qwen2.5-3B-Instruct
