@@ -7,7 +7,7 @@
 master
 
 ## 最终 Commit SHA
-submission-v1（指向 master 最新提交）
+6c47cd5
 
 ## 模型信息
 - 模型：Qwen2.5-3B-Instruct
