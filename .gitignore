@@ -1,0 +1,7 @@
+*.gguf
+llama.cpp/
+build/
+__pycache__/
+*.pyc
+models/
+.venv/

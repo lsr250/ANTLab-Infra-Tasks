@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>推理测试面板</title>
+<style>body{font-family:sans-serif;margin:20px}table{border-collapse:collapse;width:100%}
+td,th{border:1px solid #ccc;padding:6px;font-size:13px}.ok{color:green}.err{color:red}</style></head>
+<body>
+<h1>推理服务测试面板</h1>
+<p>服务状态：<span id="h">检测中...</span></p>
+<p>
+<select id="cfg"><option>baseline</option><option>optimized</option></select>
+<button onclick="load()">刷新</button>
+</p>
+<table id="t"><thead><tr>
+<th>任务</th><th>状态</th><th>TTFT(s)</th><th>TPOT(s)</th><th>E2E(s)</th><th>Token</th><th>输出预览</th>
+</tr></thead><tbody></tbody></table>
+<script>
+async function hp(){const r=await fetch('/api/health');const j=await r.json();
+document.getElementById('h').innerHTML=j.ok?'<span class="ok">正常</span>':'<span class="err">异常</span>';}
+async function load(){const cfg=document.getElementById('cfg').value;
+const r=await fetch('/api/results?config='+cfg);const d=await r.json();
+const tb=document.querySelector('#t tbody');tb.innerHTML='';
+for(const x of d){const tr=document.createElement('tr');
+tr.innerHTML=`<td>${x.task_id||''}</td><td>${x.status||''}</td>
+<td>${(x.ttft_s||0).toFixed(3)}</td><td>${(x.tpot_s||0).toFixed(4)}</td>
+<td>${(x.e2e_s||0).toFixed(2)}</td><td>${x.output_tokens||0}</td>
+<td>${(x.output_text||'').slice(0,80)}</td>`;tb.appendChild(tr);}}
+hp();load();setInterval(hp,5000);
+</script></body></html>
